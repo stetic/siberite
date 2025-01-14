@@ -95,10 +95,11 @@ func (c *Controller) ReadFirstMessage() (string, error) {
 	return c.rw.Reader.ReadString('\n')
 }
 
-// UnknownCommand reports an error
-func (c *Controller) UnknownCommand() error {
-	c.SendError(ErrUnknownCommand)
-	return ErrUnknownCommand
+// UnknownCommand reports an error with the specific command that was unknown
+func (c *Controller) UnknownCommand(cmd string) error {
+	err := &Error{commonError, fmt.Sprintf("Unknown command: %s", cmd)}
+	c.SendError(err)
+	return err
 }
 
 //SendError sends an error message to the client

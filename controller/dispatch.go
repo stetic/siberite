@@ -35,7 +35,7 @@ func (c *Controller) Dispatch() error {
 	case "quit":
 		return ErrClientQuit
 	default:
-		return c.UnknownCommand()
+		return c.UnknownCommand(command[0])
 	}
 
 	if err != nil {
